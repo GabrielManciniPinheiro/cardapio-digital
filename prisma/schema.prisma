@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") 
+}
+
+// Tabela base para permitir vender o sistema para vários restaurantes no futuro
+model Restaurant {
+  id             String     @id @default(uuid())
+  name           String
+  slug           String     @unique // ex: "camaleao-bar"
+  avatarImageUrl String?
+  coverImageUrl  String?
+  categories     Category[]
+  products       Product[]
+  
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+// Categorias do cardápio (Bebidas, Porções, etc.)
+model Category {
+  id           String     @id @default(uuid())
+  name         String
+  
+  // Relacionamento com o Restaurante
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  
+  products     Product[]
+
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+// Os itens do cardápio em si
+model Product {
+  id                 String     @id @default(uuid())
+  name               String
+  slug               String     @unique // ex: "porcao-de-batata-frita"
+  description        String
+  basePrice          Decimal    @db.Decimal(10, 2) // Decimal é ideal para lidar com dinheiro
+  discountPercentage Int        @default(0)
+  imageUrl           String
+
+  // Relacionamento com a Categoria
+  categoryId         String
+  category           Category   @relation(fields: [categoryId], references: [id])
+  
+  // Relacionamento direto com o Restaurante (facilita buscas)
+  restaurantId       String
+  restaurant         Restaurant @relation(fields: [restaurantId], references: [id])
+
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+}
