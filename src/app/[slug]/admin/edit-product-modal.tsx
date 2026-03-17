@@ -12,13 +12,18 @@ import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { updateProductAction } from "./actions";
 
-interface ProductPayload {
+// Tipagem exata para bater com o que vem do Prisma + Categoria
+interface ProductWithCategory {
   id: string;
   name: string;
   description: string;
   basePrice: number;
   imageUrl: string;
   categoryId: string;
+  category: {
+    id: string;
+    name: string;
+  };
 }
 
 interface CategoryPayload {
@@ -27,7 +32,7 @@ interface CategoryPayload {
 }
 
 interface EditProductModalProps {
-  product: ProductPayload;
+  product: ProductWithCategory;
   categories: CategoryPayload[];
   slug: string;
 }
@@ -79,7 +84,7 @@ export function EditProductModal({
               required
               defaultValue={product.name}
               name="name"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
@@ -89,7 +94,7 @@ export function EditProductModal({
               required
               defaultValue={product.categoryId}
               name="categoryId"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
             >
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -108,7 +113,7 @@ export function EditProductModal({
                 name="basePrice"
                 step="0.01"
                 type="number"
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
             <div className="grid gap-2">
@@ -118,31 +123,25 @@ export function EditProductModal({
               <input
                 name="imageFile"
                 type="file"
-                accept="image/png, image/jpeg, image/webp"
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
+                accept="image/*"
+                className="flex h-10 w-full text-xs"
               />
             </div>
           </div>
 
           <div className="grid gap-2">
-            <label className="text-sm font-semibold">Descrição do Prato</label>
+            <label className="text-sm font-semibold">Descrição</label>
             <textarea
               required
               defaultValue={product.description}
               name="description"
-              className="flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
-          <div className="flex justify-end pt-2">
-            <Button
-              type="submit"
-              disabled={isUploading}
-              className="bg-primary text-white w-full sm:w-auto"
-            >
-              {isUploading ? "Salvando..." : "Salvar Alterações"}
-            </Button>
-          </div>
+          <Button type="submit" disabled={isUploading} className="w-full">
+            {isUploading ? "Salvando..." : "Salvar Alterações"}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

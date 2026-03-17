@@ -61,7 +61,7 @@ export default function MenuClient({ restaurant }: MenuClientProps) {
           {restaurant.name}
         </h1>
         <p className="text-muted-foreground font-medium mt-1">
-          Faça seu pedido abaixo
+          Navegue pelo cardápio digital do camaleão!
         </p>
       </header>
 
