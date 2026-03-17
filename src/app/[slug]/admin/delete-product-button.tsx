@@ -43,7 +43,7 @@ export function DeleteProductButton({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[400px] bg-background">
+      <DialogContent className="sm:max-w-100 bg-background">
         {/* Cabeçalho centralizado com ícone de alerta */}
         <DialogHeader className="flex flex-col items-center gap-3 pt-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">

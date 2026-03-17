@@ -40,7 +40,7 @@ export function AddProductModal({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[450px] bg-background">
+      <DialogContent className="sm:max-w-112.5 bg-background">
         <DialogHeader>
           <DialogTitle className="text-xl">Adicionar Novo Produto</DialogTitle>
         </DialogHeader>
@@ -105,7 +105,7 @@ export function AddProductModal({
             <textarea
               required
               name="description"
-              className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               placeholder="Ingredientes, tamanho da porção, etc."
             />
           </div>

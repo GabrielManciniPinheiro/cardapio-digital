@@ -70,7 +70,7 @@ export default async function AdminPage({
           <Table>
             <TableHeader className="bg-muted/50">
               <TableRow>
-                <TableHead className="w-[80px] text-center">Imagem</TableHead>
+                <TableHead className="w-20 text-center">Imagem</TableHead>
                 <TableHead>Nome do Produto</TableHead>
                 <TableHead>Categoria</TableHead>
                 <TableHead>Preço Base</TableHead>
